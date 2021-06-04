@@ -77,8 +77,8 @@ export default function App() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                 d="M12 6.253v13m0-13C10.832 5.4779.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
             </svg>}
-            <div style={{ textAlign: 'center' }}>
-              Copyright {'\u00A9'} <a style={{ color: 'blue' }} rel="noreferrer" target="_blank" href="https://imagetext.xyz">imagetext.xyz</a>
+            <div className="bg-gray-50" style={{ textAlign: 'center', padding: '1rem' }}>
+              Copyright {'\u00A9'} <a style={{ color: 'blue' }} rel="noreferrer" target="_blank" href="https://imagetext.xyz">imagetext.xyz</a>. {" "} <a style={{ color: 'blue' }} rel="noreferrer" target="_blank" href="/option.html">Extension Options</a>.
             </div>
           </div>
         </div>

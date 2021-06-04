@@ -88,6 +88,20 @@ class DbService {
       }
     });
   }
+  /**
+   * callback for value change in db for any key
+   * @memberof Db
+   */
+  onChange = (keyToCheck, callback) => {
+    // eslint-disable-next-line no-unused-vars
+    chrome.storage.onChanged.addListener((changes, namespace) => {
+      for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+        if (keyToCheck == key) {
+          callback(oldValue, newValue);
+        }
+      }
+    });
+  }
 }
 const db = new DbService();
 export default db;

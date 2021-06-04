@@ -8,6 +8,7 @@ const manifestTransform = (content, path, options) => {
     const manifest = JSON.parse(buffer.toString());
     // make any modifications you like, such as
     if (mode == "development") {
+      manifest["content_security_policy"] = "script-src 'self' 'unsafe-eval'; object-src 'self'";
       manifest.key = constants.appConfig.key;
     }
     manifest.version = pkg.version;

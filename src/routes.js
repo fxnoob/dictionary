@@ -30,5 +30,10 @@ const Routes = async () => {
       }
     });
   });
+  /** play word */
+  messagePassing.on("/play", async (req, res, options) => {
+    const { word } = req;
+    chrome.tts.speak(word, { lang: 'en-US' });
+  });
 };
 export default Routes;

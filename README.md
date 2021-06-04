@@ -1,4 +1,8 @@
+
 # English Dictionary Offline 
+
+## Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/pbknajakomimhnnaiddkbddboifjolbf)
+
 
 ### Fully offline english dictionary. 
 
@@ -77,7 +81,7 @@ yarn build:firefox
 > 6. Cross-browser configurations.
 > 7. Generate multiple-language (Auto-translations) locales from english locales. See `yarn generate:locale` and `yarn delete:locale`. 
 > 8. Some (useful) services e.g. DbService, messagePassing, chromeService and helper functions(helpers).
-> 9. Some (useful) react components e.g. FrameMUI.js (To mount react mui component in iframe in content script).
+> 9. Some (useful) react components e.g. IFrame.js (To mount react mui component in iframe in content script).
 > 10. Locale translation using unofficial google translate API (Free version).
 
 ## directory structure

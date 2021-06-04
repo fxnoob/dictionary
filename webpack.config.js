@@ -6,9 +6,12 @@ const { manifestTransform } = require("./scripts/transform");
 module.exports = (env, options) => {
   return {
     entry: {
+      content_script: "./src/content-scripts/index.js",
       background: "./src/background.js",
-      popup: "./src/popup-page/index.js"
+      popup: "./src/popup-page/index.js",
+      option: "./src/option-page/index.js"
     },
+    devtool: "inline-source-map",
     module: {
       rules: [
         {
@@ -52,12 +55,13 @@ module.exports = (env, options) => {
       filename: "[name].bundle.js"
     },
     optimization: {
-      minimize: options.mode == "production",
+      minimize: options.mode === "production",
     },
     plugins: [
       new CopyWebpackPlugin(
         [
           { from: "./src/popup-page/popup.html", force: true },
+          { from: "./src/option-page/option.html", force: true },
           { from: "./src/app/", force: true }
         ],
         {}
@@ -73,8 +77,7 @@ module.exports = (env, options) => {
             return manifestTransform(content, path, options);
           }
         }
-      ]),
-      new webpack.HotModuleReplacementPlugin()
+      ])
     ],
     devServer: {
       contentBase: "./dist",

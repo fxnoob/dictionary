@@ -6,7 +6,10 @@
  */
 class Schema {
   constructor() {
-    this.data = {};
+    this.data = {
+      popup: true, // dictionary popup visibility
+      popupSkinColor: "#FEF3BD"
+    };
   }
   set(data) {
     this.data = data;
