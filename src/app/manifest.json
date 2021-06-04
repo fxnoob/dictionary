@@ -1,0 +1,21 @@
+{
+  "name": "__MSG_appName__",
+  "description": "__MSG_appDescription__",
+  "version": "0.0.0",
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.bundle.js"]
+  },
+  "default_locale": "en",
+  "browser_action": {
+    "default_title": "English Dictionary Offline",
+    "default_icon": "images/icon-128.png",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "images/icon-128.png"
+  },
+  "manifest_version": 2
+}
