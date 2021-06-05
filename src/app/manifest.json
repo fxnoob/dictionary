@@ -3,7 +3,7 @@
   "description": "__MSG_appDescription__",
   "version": "0.0.0",
   "permissions": [
-    "storage", "activeTab", "<all_urls>", "tts"
+    "storage", "activeTab", "<all_urls>", "tts", "tabs"
   ],
   "background": {
     "scripts": ["background.bundle.js"]

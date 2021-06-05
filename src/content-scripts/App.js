@@ -44,6 +44,10 @@ export default function App() {
     db.onChange("popupSkinColor", (oldColor, newColor) => {
       setPopupSkinColor(newColor);
     });
+    /** Check for content script mount acknowledgement from background script */
+    messagePassing.on("/cs_mounted", async (req, res) => {
+      res({ mounted: true });
+    });
   };
   useEffect(() => {
     init().catch(() => {});
