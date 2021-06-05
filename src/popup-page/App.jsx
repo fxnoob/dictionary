@@ -14,7 +14,7 @@ export default function App() {
   const onSearch = (evt) => {
     const n = 10;
     const term = evt.target.value;
-    dictionaryService.getWords(term, n)
+    dictionaryService.getWords(term,'startsWith', n)
       .then(response => {
         setWords(response);
       });

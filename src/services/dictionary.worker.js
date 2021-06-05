@@ -1,13 +1,17 @@
-import dictionaryJson from "./dictionary.json";
-function getWords(term, n) {
+import WebsterDict from "./data/data.json";
+
+function getWords(term, type, n) {
   term = term.toUpperCase();
   const words = [];
-  for(const key in dictionaryJson) {
+  for(const key in WebsterDict) {
     if (words.length >= n) {
       break;
     }
-    if (key.startsWith(term)) {
-      words.push({ word: key, meaning: dictionaryJson[key] });
+    if (type === 'startsWith' && key.startsWith(term)) {
+      words.push({ word: key, meaning: WebsterDict[key] });
+    }
+    if (type === 'exact' && key === term) {
+      words.push({ word: key, meaning: WebsterDict[key] });
     }
   }
   return words;
@@ -17,8 +21,8 @@ if (typeof self != 'undefined') {
   self.addEventListener(
     "message",
     evt => {
-      const { term, n, uid } = evt.data;
-      const words = getWords(term, n);
+      const { term, n, uid, type } = evt.data;
+      const words = getWords(term, type, n);
       self.postMessage({ term, n, uid, words });
     },
     false

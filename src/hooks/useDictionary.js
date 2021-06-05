@@ -6,7 +6,7 @@ export default function useDictionary(str, n) {
   const [error, setError] = useState(false);
   const [word, setWord] = useState({});
   const init = async () => {
-    dictionaryService.getWords(str, n)
+    dictionaryService.getWords(str, 'exact', n)
       .then(res => {
         const [dict] = res;
         setWord(dict);
@@ -19,7 +19,9 @@ export default function useDictionary(str, n) {
       });
   };
   useEffect(() => {
-    init();
+    if (str.trim() !== '') {
+      init();
+    }
   }, [str]);
   return [word, setWord, error, loading];
 }

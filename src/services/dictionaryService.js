@@ -1,10 +1,10 @@
 import messagePassing from "./messagePassing";
 class Dictionary {
-  getWords(term, n) {
+  getWords(term,type, n) {
     return new Promise(resolve => {
       messagePassing.sendMessage(
         "/get_words",
-        { term, n },
+        { term,type, n },
         words => {
           resolve(words);
         }

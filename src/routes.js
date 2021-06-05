@@ -18,11 +18,11 @@ const Routes = async () => {
   });
   /** Get dictionary words from dictionary worker */
   messagePassing.on("/get_words", async (req, res, options) => {
-    const { term, n } = req;
+    const { term, type, n } = req;
     // eslint-disable-next-line no-console
     const { dictionaryWorker } = options;
     const uid = guid.generateGuid();
-    dictionaryWorker.postMessage({ term, n, uid });
+    dictionaryWorker.postMessage({ term,type, n, uid });
     dictionaryWorker.addEventListener("message", workerData => {
       const { words, uid: resUid } = workerData.data;
       if (uid == resUid) {
