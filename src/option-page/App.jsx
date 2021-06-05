@@ -88,9 +88,9 @@ export default function Settings() {
         </List>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <ButtonGroup variant="text" color="primary" aria-label="Support and Donate">
-            <Button href={Constants.support.googleFormLink}>Support</Button>
+            <Button href={Constants.support.uninstallFeedbackForm}>Website</Button>
             <Button target="_blank" href={Constants.support.donate}>Donate</Button>
-            <Button href={Constants.support.youtube}>Youtube</Button>
+            <Button href={Constants.support.howToVideoLink}>Youtube</Button>
           </ButtonGroup>
         </div>
         <Copyright/>

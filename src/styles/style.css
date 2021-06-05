@@ -9,3 +9,13 @@
     --main-lighter-color: rgba(0, 167, 116, 0.2);
     --main-lightest-color: rgba(0, 167, 116, 0.1);
 }
+
+#audio-icon {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcUlEQVQ4y2P4//8/AyUYQhAH3gNxA7IAIQPmo/H3g/QA8XkgFiBkwHyoYnRQABVfj88AmGZcTuuHyjlgMwBZM7IE3NlQGhQe65EN+I8Dw8MLGgYoFpFqADK/YUAMwOsFigORatFIlYRElaRMWmaiBAMAp0n+3U0kqkAAAAAASUVORK5CYII=);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    margin-left: 8px;
+    opacity: 0.5;
+    width: 16px;
+}

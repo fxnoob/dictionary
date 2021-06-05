@@ -39,7 +39,7 @@ const constants = {
   },
   support: {
     donate: "https://www.patreon.com/fxnoob",
-    howToVideoLink: "TUTORIAL_LINK",
+    howToVideoLink: "https://www.youtube.com/watch?v=RIxMQJPt5vc",
     uninstallFeedbackForm: "https://imagetext.xyz",
   },
 };

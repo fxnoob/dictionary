@@ -26,9 +26,16 @@ export default function App() {
   const onTextSelect = async () => {
     const { popup } = await db.get("popup");
     if (popup) {
-      const text = window.getSelection().toString();
-      setContent(filterWord(text));
-      setOpen(true);
+      const text = window.getSelection().toString().trim();
+      const badFormat = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
+      if (!badFormat.test(text)) {
+        setContent(filterWord(text));
+        setOpen(true);
+      } else {
+        setContent("");
+        setOpen(false);
+        setWord(null);
+      }
     }
   };
   const init = async () => {

@@ -16,6 +16,7 @@ export default function useDictionary(str, n) {
       .catch(()=>{
         setLoading(false);
         setError(true);
+        setWord(null);
       });
   };
   useEffect(() => {

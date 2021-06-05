@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import { useState, useRef } from "react";
 import dictionaryService from "../services/dictionaryService";
+import messagePassing from "../services/messagePassing";
 
 export default function App() {
   const textInput = useRef();
@@ -18,6 +19,9 @@ export default function App() {
       .then(response => {
         setWords(response);
       });
+  };
+  const playSound = (word) => {
+    messagePassing.sendMessage("/play", { word });
   };
   return (
     <div className="flex flex-col">
@@ -62,7 +66,10 @@ export default function App() {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="ml-4">
-                        <div className="text-sm font-medium text-gray-900">{word.word}</div>
+                        <div className="text-sm font-medium text-gray-900 flex">
+                          <div>{word.word}</div>
+                          <div id="audio-icon" onClick={()=>playSound(word.word)} className=""></div>
+                        </div>
                         <div className="text-sm text-gray-500">{word.meaning}</div>
                       </div>
                     </div>
