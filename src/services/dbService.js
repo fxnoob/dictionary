@@ -1,4 +1,4 @@
-
+import schema from "./schema";
 /**
  * Chrome storage abstraction class
  *
@@ -39,7 +39,7 @@ class DbService {
           if (items === undefined) {
             reject(new Error("Error"));
           } else {
-            resolve(items);
+            resolve({ ...schema.data, ...items });
           }
         });
       } catch (e) {

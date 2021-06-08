@@ -2,11 +2,17 @@
 import { useState, useRef } from "react";
 import dictionaryService from "../services/dictionaryService";
 import messagePassing from "../services/messagePassing";
+import { t } from "../services/helper";
 
 export default function App() {
   const textInput = useRef();
   const [words, setWords] = useState([]);
   const [searching, setSearching ] = useState(false);
+  const labelDictionary = t("dictionary");
+  const labelSearch = t("labelSearch"); // Search
+  const labelSearchWords = t("labelSearchWords"); // Search words
+  const labelCopyright = t("labelCopyright"); // Copyright
+  const labelExtOptions = t("labelExtOptions"); // Extension Options
   const focusTextInput = () => textInput.current.focus();
   const startSearching = async () => {
     await setSearching(true);
@@ -36,14 +42,14 @@ export default function App() {
                       font-medium text-gray-500 uppercase tracking-wider w-full"
                     scope="col"
                   >
-                    English Dictionary Offline
+                    {labelDictionary}
                   </th>: <th
                     scope="col"
                   >
                     <input
                       onChange={onSearch}
                       ref={textInput}
-                      placeholder={"Search words"}
+                      placeholder={labelSearchWords}
                       style={{ width: '100%' }} className="px-6 py-4 text-left text-xs
                       font-medium text-gray-500 uppercase tracking-wider w-full"
                     />
@@ -55,7 +61,7 @@ export default function App() {
                     className="px-6 py-3 text-left text-xs
                     font-medium text-gray-500 uppercase cursor-pointer"
                   >
-                  Search
+                    {labelSearch}
                   </th>
                 </tr>
               </thead>
@@ -85,7 +91,7 @@ export default function App() {
                 d="M12 6.253v13m0-13C10.832 5.4779.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
             </svg>}
             <div className="bg-gray-50" style={{ textAlign: 'center', padding: '1rem' }}>
-              Copyright {'\u00A9'} <a style={{ color: 'blue' }} rel="noreferrer" target="_blank" href="https://imagetext.xyz">imagetext.xyz</a>. {" "} <a style={{ color: 'blue' }} rel="noreferrer" target="_blank" href="/option.html">Extension Options</a>.
+              {labelCopyright} {'\u00A9'} <a style={{ color: 'blue' }} rel="noreferrer" target="_blank" href="https://imagetext.xyz">imagetext.xyz</a>. {" "} <a style={{ color: 'blue' }} rel="noreferrer" target="_blank" href="/option.html">{labelExtOptions}</a>.
             </div>
           </div>
         </div>

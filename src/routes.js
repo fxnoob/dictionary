@@ -2,6 +2,12 @@
 import guid from "./services/guid";
 import DictionaryWorker from "./services/dictionary.worker";
 import messagePassing from "./services/messagePassing";
+import wikiService from "./services/wikiService";
+import db from "./services/dbService";
+import { languageMap } from "./services/helper";
+
+const speechSynthesis = require('speech-synthesis');
+
 /**
  *
  * messagePassing object is the Messaging Passing Class Object
@@ -11,11 +17,6 @@ import messagePassing from "./services/messagePassing";
 const dictionaryWorker = new DictionaryWorker();
 const Routes = async () => {
   messagePassing.setOptions({ dictionaryWorker });
-  messagePassing.on("/echo", async (req, res, actions) => {
-    // eslint-disable-next-line no-console
-    console.log("message logged");
-    res({ response: "hello world" });
-  });
   /** Get dictionary words from dictionary worker */
   messagePassing.on("/get_words", async (req, res, options) => {
     const { term, type, n } = req;
@@ -23,17 +24,31 @@ const Routes = async () => {
     const { dictionaryWorker } = options;
     const uid = guid.generateGuid();
     dictionaryWorker.postMessage({ term,type, n, uid });
-    dictionaryWorker.addEventListener("message", workerData => {
+    dictionaryWorker.addEventListener("message", async workerData => {
       const { words, uid: resUid } = workerData.data;
       if (uid == resUid) {
-        res(words);
+        let dicts = words || [];
+        if (dicts.length == 0) {
+          const { wikitionaryAllowed, langId } = await db.get("wikitionaryAllowed", "langId");
+          if (wikitionaryAllowed) {
+            const wikiWord = await wikiService(term, langId);
+            if (wikiWord) {
+              dicts = [{ word: term, meaning: wikiWord.text.split(".")[0] }];
+            }
+          }
+        }
+        res(dicts);
       }
     });
   });
   /** play word */
   messagePassing.on("/play", async (req, res, options) => {
     const { word } = req;
-    chrome.tts.speak(word, { lang: 'en-US' });
+    const { langId } = await db.get("langId");
+    try {
+      speechSynthesis(word, languageMap[langId] || 'en-US');
+      // eslint-disable-next-line no-empty
+    } catch (e) {}
   });
 };
 export default Routes;

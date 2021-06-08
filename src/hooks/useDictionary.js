@@ -6,6 +6,7 @@ export default function useDictionary(str, n) {
   const [error, setError] = useState(false);
   const [word, setWord] = useState({});
   const init = async () => {
+    setLoading(true);
     dictionaryService.getWords(str, 'exact', n)
       .then(res => {
         const [dict] = res;

@@ -1,7 +1,7 @@
 const { generateGuid } = require("./src/services/guid");
 const constants = {
   appConfig: {
-    appName: "English Dictionary Offline",
+    appName: "Dictionary - Oxford, Webster and Wikipedia",
     urls: {
       chrome:
           "CHROME_STORE_URL",
@@ -23,6 +23,7 @@ const constants = {
       "-----END PUBLIC KEY-----",
   },
   contentScript: {
+    popupSkinColors: ["#8ED1FC", "#C4DEF6", "#C1E1C5", "#FAD0C3", "#FEF3BD"],
     mountId: generateGuid(),
   },
   browser: {
@@ -30,7 +31,7 @@ const constants = {
       manifest: {
         browser_specific_settings: {
           gecko: {
-            id: "GECKO_ID",
+            id: "dictionary@fxnoob",
             strict_min_version: "42.0",
           },
         },
@@ -40,7 +41,7 @@ const constants = {
   support: {
     donate: "https://www.patreon.com/fxnoob",
     howToVideoLink: "https://www.youtube.com/watch?v=RIxMQJPt5vc",
-    uninstallFeedbackForm: "https://imagetext.xyz",
+    uninstallFeedbackForm: "https://forms.gle/LWUPUYp1n5ChHDkA9",
   },
 };
 

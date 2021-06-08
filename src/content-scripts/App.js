@@ -5,17 +5,8 @@ import FrameComponent from "../components/IFrame";
 import useDictionary from "../hooks/useDictionary";
 import messagePassing from "../services/messagePassing";
 import db from "../services/dbService";
-
-const filterWord = (word) => {
-  let w = word.trim().toUpperCase();
-  if (w[w.length - 1 ] == "S") {
-    w = w.slice(0, -1);
-  }
-  if (w.endsWith("ING")) {
-    w = w.slice(0, -3);
-  }
-  return w;
-};
+import Loader from "../components/Loader";
+import { t } from "../services/helper";
 
 export default function App() {
   const [ open, setOpen ] = useState(false);
@@ -29,7 +20,7 @@ export default function App() {
       const text = window.getSelection().toString().trim();
       const badFormat = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
       if (!badFormat.test(text)) {
-        setContent(filterWord(text));
+        setContent(text);
         setOpen(true);
       } else {
         setContent("");
@@ -37,6 +28,10 @@ export default function App() {
         setWord(null);
       }
     }
+  };
+  const onTextUnselect = () => {
+    setOpen(false);
+    setWord({});
   };
   const init = async () => {
     const { popupSkinColor } = await db.get("popupSkinColor");
@@ -60,34 +55,42 @@ export default function App() {
       placementStrategy={placeRightBelow}
       isOpen={open}
       onTextSelect={onTextSelect}
-      onTextUnselect={() => setOpen(false)}
+      onTextUnselect={onTextUnselect}
     >
       <FrameComponent
-        className="default-iframe"
-        style={{ border: "none", zIndex: 99989898, background: popupSkinColor,
+        style={{
+          zIndex: 99989898,
+          background: popupSkinColor,
           "WebkitBoxShadow":"0px 0px 3px 0px rgba(0,0,0,0.75)",
           "MozBoxShadow":"0px 0px 3px 0px rgba(0,0,0,0.75)",
-          "boxShadow":"0px 0px 3px 0px rgba(0,0,0,0.75)"
+          boxShadow: "0 0 20px rgb(0 0 0 / 50%)",
+          border: "1px solid #999",
+          borderRadius: '4px',
         }}
       >
         <div className="px-6 py-4 whitespace-nowrap">
           <div className="flex items-center">
             <div className="ml-4">
-              {loading && "Loading..."}
+              {loading && <Loader style={{ width: '30px' }}/>}
               {!loading && !error && (
                 word ? <>
-                  <div className="flex text-sm font-medium text-gray-900">
-                    {word.word}
+                  <div className="flex text-sm font-medium text-gray-900"
+                    style={{ lineHeight: '1.4' }}>
+                    <div style={{ fontSize: '14px',
+                      fontWeight: 'bolder', fontFamily: 'arial, sans-serif' }}>
+                      {word.word}
+                    </div>
                     <div id="audio-icon" onClick={playSound} className=""></div>
                   </div>
                   <div className="text-sm text-gray-700"
-                    style={{ marginTop: '0.5rem' }}>{word.meaning}</div>
+                    style={{ marginTop: '0.5rem',
+                      fontFamily: 'arial, sans-serif' }}>{word.meaning}</div>
                   <div className="text-sm text-gray-500" style={{ marginTop: '0.4rem' }}>
                     [ powered by {" "}
-                    <a rel="noreferrer"
+                    <a rel="noreferrer" style={{ fontFamily: 'arial, sans-serif' }}
                       href="https://imagetext.xyz" target="_blank">imagetext.xyz</a> {" "}]
                   </div>
-                </>: "No word Found!"
+                </>: <div style={{ fontFamily: 'arial, sans-serif' }}>{t("noDefFound")}</div>
               )
               }
             </div>

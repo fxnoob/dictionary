@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
 const { manifestTransform } = require("./scripts/transform");
@@ -45,9 +46,12 @@ module.exports = (env, options) => {
       ]
     },
     resolve: {
-      extensions: ['.mjs', '*', '.js', '.jsx', '.css', '.json']
+      extensions: ['.mjs', '*', '.js', '.jsx', '.css', '.json'],
+      alias: {
+        Dictionary: path.resolve(__dirname, options.browser == "firefox" ?
+          "src/services/data/data.json": "src/services/data/fakeData.json"),
+      },
     },
-
     output: {
       path: __dirname + "/dist",
       publicPath: "/",
@@ -66,7 +70,7 @@ module.exports = (env, options) => {
         {}
       ),
       new webpack.DefinePlugin({
-        "process.env": JSON.stringify(dotenv.parsed)
+        "process.env": JSON.stringify({ ...options, ...dotenv.parsed })
       }),
       new CopyWebpackPlugin([
         {
@@ -81,6 +85,6 @@ module.exports = (env, options) => {
     devServer: {
       contentBase: "./dist",
       hot: true
-    }
+    },
   };
 };

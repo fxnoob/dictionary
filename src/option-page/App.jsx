@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
@@ -17,6 +17,9 @@ import db from "../services/dbService";
 import Copyright from "./Copyright";
 import Constants from "../../constants";
 import Navbar from "./Navbar";
+import useStorage from "../hooks/useStorage";
+import LanguageOptions from "../components/LanguageOptions";
+import { t } from "../services/helper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,8 +31,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Settings() {
   const classes = useStyles();
-  const [color, setColor] = useState("");
-  const [showPopup, setShowPopup] = useState(true);
+  const [color, setColor] = useStorage("popupSkinColor");
+  const [showPopup, setShowPopup] = useStorage("popup");
+  const [wikipediaLookup, setWikipediaLookup] = useStorage("wikitionaryAllowed");
+  const [language, setLanguage] = useStorage("langId");
+  const labelMyLanguage = t("labelMyLanguage"); // My language
+  const labelDictPopup = t("labelDictPopup"); // Dictionary pop-up
+  const labelFallbackToWiki = t("labelFallbackToWiki"); // Fallback to wikipedia definitions
+  const labelPopupSkin = t("labelPopupSkin"); // Pop-up Skin
 
   const init = async () => {
     const { popupSkinColor, popup } = await db.get("popupSkinColor", "popup");
@@ -41,15 +50,11 @@ export default function Settings() {
     init().catch(() => {});
   }, []);
 
-  const handlePopupVisibilityChange = async () => {
-    const visibility = !showPopup;
-    await db.set({ popup: visibility });
-    setShowPopup(visibility);
+  const toggle = (handler, value) => () => {
+    const invert = !value;
+    handler(invert);
   };
-  const handleColorChange = (color) => {
-    setColor(color.hex);
-    db.set({ popupSkinColor: color.hex });
-  };
+
   return (
     <>
       <Navbar/>
@@ -60,11 +65,39 @@ export default function Settings() {
             <ListItemIcon>
               <LaptopWindowsIcon />
             </ListItemIcon>
-            <ListItemText id="switch-list-label-commands" primary="Dictionary popup" />
+            <ListItemText id="switch-list-label-commands"
+              primary={labelMyLanguage} />
+            <ListItemSecondaryAction>
+              <LanguageOptions
+                style={{ height: '2rem', border: '2px solid gray', borderRadius: '.3rem' }}
+                value={language}
+                onChange={evt => setLanguage(evt.target.value)}
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <LaptopWindowsIcon />
+            </ListItemIcon>
+            <ListItemText id="switch-list-label-commands" primary={labelDictPopup} />
             <ListItemSecondaryAction>
               <Switch
                 checked={showPopup}
-                onChange={handlePopupVisibilityChange}
+                onChange={toggle(setShowPopup, showPopup)}
+                inputProps={{ 'aria-label': 'Set Dictionary popup visibility on webpage.' }}
+              />
+            </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <LaptopWindowsIcon />
+            </ListItemIcon>
+            <ListItemText id="switch-list-label-commands"
+              primary={labelFallbackToWiki} />
+            <ListItemSecondaryAction>
+              <Switch
+                checked={wikipediaLookup}
+                onChange={toggle(setWikipediaLookup, wikipediaLookup)}
                 inputProps={{ 'aria-label': 'Set Dictionary popup visibility on webpage.' }}
               />
             </ListItemSecondaryAction>
@@ -73,15 +106,15 @@ export default function Settings() {
             <ListItemIcon>
               <ColorLensIcon />
             </ListItemIcon>
-            <ListItemText id="switch-list-label-commands" primary="Popup Skin" />
+            <ListItemText id="switch-list-label-commands" primary={labelPopupSkin} />
             <ListItemSecondaryAction
               styles={{ flexDirection: 'row-reverse', marginRight: '-2rem' }}>
               <div style={{ marginRight: '-2rem' }}>
                 <CirclePicker
                   styles={{ flexDirection: 'row-reverse' }}
                   color={ color }
-                  onChangeComplete={ handleColorChange }
-                  colors={["#8ED1FC", "#C4DEF6", "#C1E1C5", "#FAD0C3", "#FEF3BD",]}/>
+                  onChangeComplete={ (color) => setColor(color.hex) }
+                  colors={Constants.contentScript.popupSkinColors}/>
               </div>
             </ListItemSecondaryAction>
           </ListItem>

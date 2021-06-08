@@ -1,11 +1,13 @@
-
-# English Dictionary Offline 
+# Dictionary - Oxford, Webster and Wikipedia
 
 ## Install from [Chrome Web Store](https://chrome.google.com/webstore/detail/pbknajakomimhnnaiddkbddboifjolbf)
 
 
-### Fully offline english dictionary. 
+### Dictionary for multiple languages. 
 
+
+### Supported Languages: 
+Abkhaz,Acehnese,Adyghe,Afrikaans,Akan,Albanian,Alemannic,Amharic,Arabic,Aragonese,Aramaic,Armenian,Aromanian,Assamese,Asturian,Atikamekw,Avar,Awadhi,Aymara,Azerbaijani,Balinese,Bambara,Banjar,Banyumasan,Bashkir,Basque,Bavarian,Belarusian,Belarusian (Taraškievica),Bengali,Bihari (Bhojpuri),Bishnupriya Manipuri,Bislama,Bosnian,Breton,Buginese,Bulgarian,Burmese,Buryat,Cantonese,Catalan,Cebuano,Central Bikol,Chamorro,Chechen,Cherokee,Chewa,Cheyenne,Chinese,Chuvash,Classical Chinese,Cornish,Corsican,Cree,Crimean Tatar,Croatian,Czech,Danish,Dhivehi,Dinka,Doteli,Dutch,Dutch Low Saxon,Dzongkha,Eastern Min/Min Dong,Eastern Punjabi,Egyptian Arabic,Emilian-Romagnol,English,Erzya,Esperanto,Estonian,Ewe,Extremaduran,Faroese,Fiji Hindi,Fijian,Finnish,Franco-Provençal/Arpitan,French,Friulian,Fula,Gagauz,Galician,Gan Chinese,Georgian,German,Gilaki,Gorontalo,Gothic,Greek,Greenlandic,Guarani,Guianan Creole,Gujarati,Haitian Creole,Hakka,Hausa,Hawaiian,Hebrew,Hill Mari,Hindi,Hungarian,Icelandic,Ido,Igbo,Ilokano,Inari Sami,Indonesian,Ingush,Interlingua,Interlingue,Inuktitut,Inupiaq,Iran Azerbaijani,Irish,Italian,Jamaican Patois,Japanese,Javanese,Judaeo-Spanish/Ladino,Kabardian,Kabiye,Kabyle,Kalmyk,Kannada,Kapampangan,Karachay-Balkar,Karakalpak,Kashmiri,Kashubian,Kazakh,Khmer,Kikuyu,Kinyarwanda,Kirundi,Komi,Komi-Permyak,Kongo,Konkani,Korean,Kotava,Kurdish (Kurmanji),Kurdish (Sorani),Kyrgyz,Ladin,Lak,Lao,Latgalian,Latin,Latvian,Lezgian,Ligurian,Limburgish,Lingala,Lingua Franca Nova,Lithuanian,Livvi-Karelian,Lojban,Lombard,Low German,Lower Sorbian,Luganda,Luxembourgish,Macedonian,Madurese,Maithili,Malagasy,Malay,Malayalam,Maltese,Manx,Marathi,Mazanderani,Meadow Mari,Minangkabau,Mingrelian,Mirandese,Moksha,Mon,Mongolian,Moroccan Arabic,Māori,N'Ko,Nahuatl,Nauruan,Navajo,Neapolitan,Nepali,Newar/Nepal Bhasa,Nias,Norfolk,Norman,North Frisian,Northern Sami,Northern Sotho,Norwegian (Bokmål),Norwegian (Nynorsk),Novial,Occitan,Odia,Old Church Slavonic,Old English/Anglo-Saxon,Oromo,Ossetian,Palatine German,Pali,Pangasinan,Papiamento,Pashto,Pennsylvania German,Persian,Picard,Piedmontese,Polish,Pontic Greek,Portuguese,Quechua,Ripuarian,Romanian,Romansh,Russian,Rusyn,Sakizaya,Samoan,Samogitian,Sango,Sanskrit,Santali,Saraiki,Sardinian,Saterland Frisian,Scots,Scottish Gaelic,Serbian,Serbo-Croatian,Shan,Shona,Sicilian,Silesian,Simple English,Sindhi,Sinhalese,Slovak,Slovene,Somali,Sotho,Southern Min/Min Nan,Spanish,Sranan Tongo,Sundanese,Swahili,Swazi,Swedish,Tagalog,Tahitian,Tajik,Tamil,Tarantino,Tatar,Telugu,Tetum,Thai,Tibetan,Tigrinya,Tok Pisin,Tongan,Tsonga,Tswana,Tulu,Tumbuka,Turkish,Turkmen,Tuvan,Twi,Udmurt,Ukrainian,Upper Sorbian,Urdu,Uyghur,Uzbek,Venda,Venetian,Veps,Vietnamese,Vlax Romani,Volapük,Võro,Walloon,Waray,Welsh,West Flemish,West Frisian,Western Armenian,Western Punjabi,Wolof,Wu,Xhosa,Yakut/Sakha,Yiddish,Yoruba,Zamboanga Chavacano,Zazaki,Zeelandic,Zhuang,Zulu
 
 ## Prerequisites
 

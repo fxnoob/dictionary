@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { t } from "../services/helper";
 
 const styles = {
   root: {
@@ -21,6 +22,7 @@ const styles = {
 
 const ButtonAppBar = props => {
   const { classes } = props;
+  const appName = t("appName"); 
   return (
     <div className={classes.root}>
       <AppBar
@@ -29,7 +31,7 @@ const ButtonAppBar = props => {
       >
         <Toolbar>
           <Typography variant="h6" className={classes.grow}>
-            English Dictionary Offline
+            {appName}
           </Typography>
         </Toolbar>
       </AppBar>
