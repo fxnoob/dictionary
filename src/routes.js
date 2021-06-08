@@ -19,7 +19,7 @@ const Routes = async () => {
   messagePassing.setOptions({ dictionaryWorker });
   /** Get dictionary words from dictionary worker */
   messagePassing.on("/get_words", async (req, res, options) => {
-    const { term, type, n } = req;
+    const { term, type, n, id } = req;
     // eslint-disable-next-line no-console
     const { dictionaryWorker } = options;
     const uid = guid.generateGuid();
@@ -37,7 +37,7 @@ const Routes = async () => {
             }
           }
         }
-        res(dicts);
+        res({ dicts, resId: id });
       }
     });
   });
@@ -46,6 +46,7 @@ const Routes = async () => {
     const { word } = req;
     const { langId } = await db.get("langId");
     try {
+      // chrome.tts.speak(word, { lang: langId || 'en-US' });
       speechSynthesis(word, languageMap[langId] || 'en-US');
       // eslint-disable-next-line no-empty
     } catch (e) {}

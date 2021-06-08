@@ -1,5 +1,5 @@
 let loadedModule;
-if(process.env.browser){
+if(process.env.browser === "firefox"){
   loadedModule = {};
 }else{
   loadedModule = require('./data.json');

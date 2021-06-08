@@ -5,7 +5,5 @@ import App from "./App";
 const Element = document.createElement("div");
 Element.setAttribute("id", "dfghbnjmERHJKFGHNMVBNMFBNMbmvvxnbdgf");
 document.body.appendChild(Element);
-ReactDOM.render(
-  <App />,
-  document.getElementById("dfghbnjmERHJKFGHNMVBNMFBNMbmvvxnbdgf")
-);
+const root = ReactDOM.createRoot(document.getElementById("dfghbnjmERHJKFGHNMVBNMFBNMbmvvxnbdgf"));
+root.render(<App />);

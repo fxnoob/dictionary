@@ -23,7 +23,12 @@ export default function App() {
     const term = evt.target.value;
     dictionaryService.getWords(term,'startsWith', n)
       .then(response => {
-        setWords(response);
+        if (response.length == 1) {
+
+          setWords(response);
+        } else {
+          setWords(response);
+        }
       });
   };
   const playSound = (word) => {
