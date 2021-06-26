@@ -26,7 +26,7 @@ async function lookup (query, locale = 'en') {
   });
   const body = await response.json();
   const key = Object.keys(flat(body)).find(key => key.endsWith('.extract'));
-  if (!key) return null // 404 word not found
+  if (!key) return null; // 404 word not found
   const html = getProp(body, key);
   const $ = cheerio.load(html);
 
@@ -36,7 +36,24 @@ async function lookup (query, locale = 'en') {
   //The chinese section stores all information in a single section called 'definitions',
   //which makes it unmanagable to include. Instead of skipping it entirely we could also
   //show only the first x characters from the chinese 'definitions' section
-  const skip_languages = ['chinese'];
+  const skip_languages = ['chinese', 'translingual'];
+
+  const wanted_sections = [
+    'kanji',
+    'noun',
+    'verb',
+    'adjective',
+    'particle',
+    'adverb',
+    'pronoun',
+    'conjunction',
+    'interjection',
+    'adnominal',
+    'numeral',
+    'number',
+    'usage notes',
+    'definitions'
+  ];
 
   //Select all language sections
   const lang_select = $('h2');
@@ -60,8 +77,9 @@ async function lookup (query, locale = 'en') {
     }
   }
 
+  var lang_meanings = [];
+
   //Go through each language section
-  var text = '';
   for (let l = 0; l < langs.length; l++) {
     var lang_text = '';
 
@@ -79,22 +97,6 @@ async function lookup (query, locale = 'en') {
       sections.push(section_selection.eq(i));
     }
 
-    const wanted_sections = [
-      'kanji',
-      'noun',
-      'verb',
-      'adjective',
-      'particle',
-      'adverb',
-      'pronoun',
-      'conjunction',
-      'interjection',
-      'adnominal',
-      'numeral',
-      'number',
-      'usage notes',
-      'definitions'
-    ];
     //Go through each minor section, and select the wanted ones
     for (let i = 0; i < sections.length; i++) {
       if (
@@ -118,15 +120,17 @@ async function lookup (query, locale = 'en') {
           );
         }
         const a = cheerio.load(current_section_html);
-        lang_text += '--- ' + a.text().trim() + '\n';
+        lang_text += '\n' + a.text() + '\n';
       }
     }
     if (lang_text.length != 0) {
-      text += l == 0 ? langs[l] + ':\n' : '\n' + langs[l] + ':\n';
-      text += lang_text;
+      lang_meanings.push({ language: langs[l], meaning: lang_text });
     }
   }
+  // eslint-disable-next-line no-console
+  //console.log(lang_meanings);
+  const text = 'test';
 
-  return { query, html, text };
+  return { query, html, text, lang_meanings };
 }
 export default lookup;
