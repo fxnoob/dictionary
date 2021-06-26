@@ -48,6 +48,7 @@ const Routes = async () => {
     try {
       // chrome.tts.speak(word, { lang: langId || 'en-US' });
       speechSynthesis(word, languageMap[langId] || 'en-US');
+      // eslint-disable-next-line no-empty
     } catch (e) {}
   });
 };
