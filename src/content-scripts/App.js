@@ -12,7 +12,6 @@ export default function App() {
   const [ open, setOpen ] = useState(false);
   const [ content, setContent ] = useState("");
   const [popupSkinColor, setPopupSkinColor] = useState();
-  // eslint-disable-next-line no-unused-vars
   const [word, setWord, error, loading] = useDictionary(content, 1);
   const onTextSelect = async () => {
     const { popup } = await db.get("popup");
@@ -50,6 +49,7 @@ export default function App() {
   const playSound = () => {
     messagePassing.sendMessage("/play", { word: word.word });
   };
+  // eslint-disable-next-line no-console
   return (
     <Popover
       placementStrategy={placeRightBelow}
@@ -82,9 +82,10 @@ export default function App() {
                     </div>
                     <div id="audio-icon" onClick={playSound} className=""></div>
                   </div>
-                  <div className="text-sm text-gray-700"
-                    style={{ marginTop: '0.5rem',
-                      fontFamily: 'arial, sans-serif' }}>{word.meaning}</div>
+                  { word.meaning && word.meanings.map(meaning => (
+                  <div className="text-sm text-gray-700" key={meaning.language} style={{ marginTop: '0.5rem', fontFamily: 'arial, sans-serif' }}>
+                    <span><b>{meaning.language}</b></span>
+                    <span>{meaning.meaning}</span><br/><br/></div>)) }
                   <div className="text-sm text-gray-500" style={{ marginTop: '0.4rem' }}>
                     [ powered by {" "}
                     <a rel="noreferrer" style={{ fontFamily: 'arial, sans-serif' }}
