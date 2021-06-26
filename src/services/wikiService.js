@@ -81,8 +81,6 @@ async function lookup (query, locale = 'en') {
 
   //Go through each language section
   for (let l = 0; l < langs.length; l++) {
-    var lang_text = '';
-
     const current_html =
       langs.length - 1
         ? html.substring(langs_indexes[l], langs_indexes[l + 1])
@@ -97,6 +95,8 @@ async function lookup (query, locale = 'en') {
       sections.push(section_selection.eq(i));
     }
 
+    var actual_sections = [];
+
     //Go through each minor section, and select the wanted ones
     for (let i = 0; i < sections.length; i++) {
       if (
@@ -110,21 +110,21 @@ async function lookup (query, locale = 'en') {
         var current_section_html = null;
         if (i == sections.length - 1) {
           current_section_html = current_html.substring(
-            current_html.search(sections[i].html()),
+            current_html.search(sections[i].html()) + sections[i].html().length,
             current_html.length
           );
         } else {
           current_section_html = current_html.substring(
-            current_html.search(sections[i].html()),
+            current_html.search(sections[i].html()) + sections[i].html().length,
             current_html.search(sections[i + 1].html())
           );
         }
         const a = cheerio.load(current_section_html);
-        lang_text += '\n' + a.text() + '\n';
+        actual_sections.push({ section: sections[i].text().trim(), text: a.text() });
       }
     }
-    if (lang_text.length != 0) {
-      lang_meanings.push({ language: langs[l], meaning: lang_text });
+    if (actual_sections.length > 0) {
+      lang_meanings.push({ language: langs[l], sections: actual_sections });
     }
   }
   // eslint-disable-next-line no-console
