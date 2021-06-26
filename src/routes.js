@@ -33,7 +33,7 @@ const Routes = async () => {
           if (wikitionaryAllowed) {
             const wikiWord = await wikiService(term, langId);
             if (wikiWord) {
-              dicts = [{ word: term, meaning: wikiWord.text.split(".")[0] }];
+              dicts = [{ word: term, meaning: wikiWord.text, meanings: wikiWord.lang_meanings }];
             }
           }
         }
@@ -48,7 +48,6 @@ const Routes = async () => {
     try {
       // chrome.tts.speak(word, { lang: langId || 'en-US' });
       speechSynthesis(word, languageMap[langId] || 'en-US');
-      // eslint-disable-next-line no-empty
     } catch (e) {}
   });
 };
