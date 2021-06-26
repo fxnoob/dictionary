@@ -82,10 +82,18 @@ export default function App() {
                     </div>
                     <div id="audio-icon" onClick={playSound} className=""></div>
                   </div>
-                  { word.meaning && word.meanings.map(meaning => (
-                  <div className="text-sm text-gray-700" key={meaning.language} style={{ marginTop: '0.5rem', fontFamily: 'arial, sans-serif' }}>
-                    <span><b>{meaning.language}</b></span>
-                    <span>{meaning.meaning}</span><br/><br/></div>)) }
+                  {word.meaning && word.meanings.map(object => 
+                    <div className="text-sm text-gray-700" key={object.language} 
+                      style={{ marginTop: '0.5rem', fontFamily: 'arial, sans-serif' }}>
+                      <span><b>{object.language}</b></span>
+                      {object.sections.map(section =>
+                        <div key={section.section + section.text}>
+                          <span><i>{section.section + ' · '}</i></span>
+                          <span>{section.text}</span>
+                        </div>)
+                      }
+                    </div>)
+                  }
                   <div className="text-sm text-gray-500" style={{ marginTop: '0.4rem' }}>
                     [ powered by {" "}
                     <a rel="noreferrer" style={{ fontFamily: 'arial, sans-serif' }}
