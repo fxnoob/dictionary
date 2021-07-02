@@ -72,7 +72,7 @@ async function lookup (query, locale = 'en') {
   //Go through each language section
   for (let l = 0; l < langs.length; l++) {
     if (languages_special_parse[locale] !== undefined) {
-      if (languages_special_parse[locale].skip.includes(langs[l])) {
+      if (languages_special_parse[locale].skip.includes(langs[l].toLowerCase())) {
         continue;
       }
     }
