@@ -33,54 +33,50 @@ async function lookup (query, locale = 'en') {
   var langs = [];
   var langs_indexes = [];
 
-  //The chinese section stores all information in a single section called 'definitions',
-  //which makes it unmanagable to include. Instead of skipping it entirely we could also
-  //show only the first x characters from the chinese 'definitions' section
-  const skip_languages = ['chinese', 'translingual'];
-
-  const wanted_sections = [
-    'kanji',
-    'noun',
-    'verb',
-    'adjective',
-    'particle',
-    'adverb',
-    'pronoun',
-    'conjunction',
-    'interjection',
-    'adnominal',
-    'numeral',
-    'number',
-    'usage notes',
-    'definitions'
-  ];
-
   //Select all language sections
   const lang_select = $('h2');
   for (let i = 0; i < lang_select.length; i++) {
-    if (
-      !skip_languages.includes(
-        lang_select
-          .eq(i)
-          .text()
-          .trim()
-          .toLowerCase()
-      )
-    ) {
-      langs.push(
-        lang_select
-          .eq(i)
-          .text()
-          .trim()
-      );
-      langs_indexes.push(html.search(lang_select.eq(i).html()));
-    }
+    langs.push(
+      lang_select
+        .eq(i)
+        .text()
+        .trim()
+    );
+    langs_indexes.push(html.search(lang_select.eq(i).html()));
   }
 
   var lang_meanings = [];
 
+  const languages_special_parse = {
+    en: {
+      parse: [
+        'kanji',
+        'noun',
+        'verb',
+        'adjective',
+        'particle',
+        'adverb',
+        'pronoun',
+        'conjunction',
+        'interjection',
+        'adnominal',
+        'numeral',
+        'number',
+        'usage notes',
+        'definitions'
+      ],
+      skip: ['chinese', 'translingual']
+    }
+  };
+
   //Go through each language section
   for (let l = 0; l < langs.length; l++) {
+    if (languages_special_parse[locale] !== undefined) {
+      if (languages_special_parse[locale].skip.includes(langs[l])) {
+        continue;
+      }
+    }
+
     const current_html =
       langs.length - 1
         ? html.substring(langs_indexes[l], langs_indexes[l + 1])
@@ -97,17 +93,45 @@ async function lookup (query, locale = 'en') {
 
     var actual_sections = [];
 
-    //Go through each minor section, and select the wanted ones
-    for (let i = 0; i < sections.length; i++) {
-      if (
-        wanted_sections.includes(
-          sections[i]
-            .text()
-            .trim()
-            .toLowerCase()
-        )
-      ) {
-        var current_section_html = null;
+    var current_section_html = null;
+
+    if (languages_special_parse[locale] !== undefined) {
+      //If the current language has special parsing, 
+      //go through each minor section, and select the wanted ones
+      for (let i = 0; i < sections.length; i++) {
+        if (
+          languages_special_parse[locale].parse.includes(
+            sections[i]
+              .text()
+              .trim()
+              .toLowerCase()
+          )
+        ) {
+          current_section_html = null;
+          if (i == sections.length - 1) {
+            current_section_html = current_html.substring(
+              current_html.search(sections[i].html()) +
+                sections[i].html().length,
+              current_html.length
+            );
+          } else {
+            current_section_html = current_html.substring(
+              current_html.search(sections[i].html()) +
+                sections[i].html().length,
+              current_html.search(sections[i + 1].html())
+            );
+          }
+          const a = cheerio.load(current_section_html);
+          actual_sections.push({
+            section: sections[i].text().trim(),
+            text: a.text()
+          });
+        }
+      }
+    } else {
+      //Else select all minor sections
+      for (let i = 0; i < sections.length; i++) {
+        current_section_html = null;
         if (i == sections.length - 1) {
           current_section_html = current_html.substring(
             current_html.search(sections[i].html()) + sections[i].html().length,
@@ -120,9 +144,13 @@ async function lookup (query, locale = 'en') {
           );
         }
         const a = cheerio.load(current_section_html);
-        actual_sections.push({ section: sections[i].text().trim(), text: a.text() });
+        actual_sections.push({
+          section: sections[i].text().trim(),
+          text: a.text()
+        });
       }
     }
+
     if (actual_sections.length > 0) {
       lang_meanings.push({ language: langs[l], sections: actual_sections });
     }
