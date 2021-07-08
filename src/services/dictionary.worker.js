@@ -8,10 +8,12 @@ function getWords({ term, type, n }) {
       break;
     }
     if (type === 'startsWith' && key.startsWith(term)) {
-      words.push({ word: key, meaning: Dictionary[key] });
+      // eslint-disable-next-line max-len
+      words.push({ word: key, meanings: [{ language: 'English', sections: [{ section: 'meaning', text: Dictionary[key] }] }] });
     }
     if (type === 'exact' && key === term) {
-      words.push({ word: key, meaning: Dictionary[key] });
+      // eslint-disable-next-line max-len
+      words.push({ word: key, meanings: [{ language: 'English', sections: [{ section: 'meaning', text: Dictionary[key] }] }] });
     }
   }
   return words;

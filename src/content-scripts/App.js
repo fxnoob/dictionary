@@ -18,7 +18,7 @@ export default function App() {
     if (popup) {
       const text = window.getSelection().toString().trim();
       const badFormat = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/;
-      if (!badFormat.test(text)) {
+      if (!badFormat.test(text) && text.trim() !== '') {
         setContent(text);
         setOpen(true);
       } else {
@@ -82,7 +82,7 @@ export default function App() {
                     </div>
                     <div id="audio-icon" onClick={playSound} className=""></div>
                   </div>
-                  {word.meaning && word.meanings.map(object => 
+                  {word.meanings && word.meanings.map(object =>
                     <div className="text-sm text-gray-700" key={object.language} 
                       style={{ marginTop: '0.5rem', fontFamily: 'arial, sans-serif' }}>
                       <span><b>{object.language}</b></span>

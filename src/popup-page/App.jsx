@@ -81,7 +81,7 @@ export default function App() {
                           <div>{word.word}</div>
                           <div id="audio-icon" onClick={()=>playSound(word.word)} className=""></div>
                         </div>
-                        <div className="text-sm text-gray-500">{word.meaning}</div>
+                        <div className="text-sm text-gray-500">{word.meanings[0].sections[0].text}</div>
                       </div>
                     </div>
                   </td>

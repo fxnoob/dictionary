@@ -155,10 +155,6 @@ async function lookup (query, locale = 'en') {
       lang_meanings.push({ language: langs[l], sections: actual_sections });
     }
   }
-  // eslint-disable-next-line no-console
-  //console.log(lang_meanings);
-  const text = 'test';
-
-  return { query, html, text, lang_meanings };
+  return { query, html, lang_meanings };
 }
 export default lookup;

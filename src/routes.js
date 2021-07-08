@@ -33,7 +33,7 @@ const Routes = async () => {
           if (wikitionaryAllowed) {
             const wikiWord = await wikiService(term, langId);
             if (wikiWord) {
-              dicts = [{ word: term, meaning: wikiWord.text, meanings: wikiWord.lang_meanings }];
+              dicts = [{ word: term, meanings: wikiWord.lang_meanings }];
             }
           }
         }
