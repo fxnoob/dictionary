@@ -1,6 +1,6 @@
 {
-  "name": "english-dictionary-offline",
-  "version": "0.0.3",
+  "name": "dictionary",
+  "version": "0.0.4",
   "description": "",
   "homepage": "https://fxnoob.github.io/chrome-extension-boilerplate",
   "scripts": {
