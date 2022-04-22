@@ -1,11 +1,12 @@
-import schema from "./schema";
+import schema from './schema';
+
 /**
  * Chrome storage abstraction class
  *
  * @export
- * @class DbService
+ * @class Db
  */
-class DbService {
+class Db {
   /**
    * Set a value in storage
    *
@@ -69,7 +70,20 @@ class DbService {
       }
     });
   };
-
+  /**
+   * callback for value change in db for any key
+   * @memberof Db
+   */
+  onChange = (keyToCheck, callback) => {
+    // eslint-disable-next-line no-unused-vars
+    chrome.storage.onChanged.addListener((changes, namespace) => {
+      for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+        if (keyToCheck == key) {
+          callback(oldValue, newValue);
+        }
+      }
+    });
+  }
   /**
    * Removes a value from storage
    *
@@ -89,19 +103,18 @@ class DbService {
     });
   }
   /**
-   * callback for value change in db for any key
+   * Increment value of a prop
+   *
+   * @param {string} keyStr single key
+   * @returns {Promise}
    * @memberof Db
    */
-  onChange = (keyToCheck, callback) => {
-    // eslint-disable-next-line no-unused-vars
-    chrome.storage.onChanged.addListener((changes, namespace) => {
-      for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-        if (keyToCheck == key) {
-          callback(oldValue, newValue);
-        }
-      }
-    });
+  async increment(keyStr) {
+    let { [keyStr]: keyVal } = await this.get(keyStr);
+    await db.set({ [keyStr]: ++keyVal });
+    return keyVal;
   }
 }
-const db = new DbService();
+
+const db = new Db();
 export default db;

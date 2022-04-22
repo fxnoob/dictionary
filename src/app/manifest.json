@@ -2,14 +2,16 @@
   "name": "__MSG_appName__",
   "description": "__MSG_appDescription__",
   "version": "0.0.0",
+  "manifest_version": 3,
   "permissions": [
-    "storage", "activeTab", "<all_urls>", "tts", "tabs"
+    "storage", "activeTab", "tts", "tabs"
   ],
+  "host_permissions": ["<all_urls>"],
   "background": {
-    "scripts": ["background.bundle.js"]
+    "service_worker": "background.bundle.js"
   },
   "default_locale": "en",
-  "browser_action": {
+  "action": {
     "default_title": "Dictionary - Oxford, Webster and Wikipedia",
     "default_icon": "images/icon-128.png",
     "default_popup": "popup.html"
@@ -21,8 +23,14 @@
       "run_at": "document_end"
     }
   ],
+  "externally_connectable": {
+    "matches": [
+      "*://localhost/*",
+      "*://voicetyping.live/*",
+      "*://*.voicetyping.live/*"
+    ]
+  },
   "icons": {
     "128": "images/icon-128.png"
-  },
-  "manifest_version": 2
+  }
 }

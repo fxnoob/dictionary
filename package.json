@@ -1,6 +1,6 @@
 {
   "name": "dictionary",
-  "version": "0.0.4",
+  "version": "3.0.0",
   "description": "",
   "homepage": "https://fxnoob.github.io/chrome-extension-boilerplate",
   "scripts": {
@@ -92,6 +92,7 @@
     "languagedetect": "^2.0.0",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
+    "query-string": "^7.1.1",
     "react": "^18.0.0-alpha-e6be2d531",
     "react-color": "^2.19.3",
     "react-content-loader": "^6.0.3",

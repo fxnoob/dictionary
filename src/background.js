@@ -19,7 +19,7 @@ class Main {
 
   init = async () => {
     await this.initDb();
-    await Routes();
+    Routes();
   };
   /**
    * mount content script on previously opened tabs

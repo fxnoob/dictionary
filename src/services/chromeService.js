@@ -50,7 +50,14 @@ class ChromeApi {
   setBadgeOnActionIcon(badge) {
     chrome.browserAction.setBadgeText({ text: badge });
   }
-
+  /**
+   *Set Badge color on extension icon
+   * @method
+   * @memberOf ChromeApi
+   */
+  setBadgeColorOnActionIcon(color) {
+    chrome.browserAction.setBadgeBackgroundColor({ color });
+  }
   /**
    * Open help page
    *

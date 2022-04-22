@@ -1,12 +1,8 @@
-/* eslint-disable no-unused-vars */
-import guid from "./services/guid";
-import DictionaryWorker from "./services/dictionary.worker";
 import messagePassing from "./services/messagePassing";
+import MessagePassingExternalService from "./services/messagePassingExternal";
 import wikiService from "./services/wikiService";
 import db from "./services/dbService";
-import { languageMap } from "./services/helper";
-
-const speechSynthesis = require('speech-synthesis');
+import constants from "../constants";
 
 /**
  *
@@ -14,42 +10,36 @@ const speechSynthesis = require('speech-synthesis');
  * which contains methods suitable for message passing apis.
  *
  * */
-const dictionaryWorker = new DictionaryWorker();
-const Routes = async () => {
-  messagePassing.setOptions({ dictionaryWorker });
+const Routes = () => {
   /** Get dictionary words from dictionary worker */
-  messagePassing.on("/get_words", async (req, res, options) => {
-    const { term, type, n, id } = req;
-    // eslint-disable-next-line no-console
-    const { dictionaryWorker } = options;
-    const uid = guid.generateGuid();
-    dictionaryWorker.postMessage({ term,type, n, uid });
-    dictionaryWorker.addEventListener("message", async workerData => {
-      const { words, uid: resUid } = workerData.data;
-      if (uid == resUid) {
-        let dicts = words || [];
-        if (dicts.length == 0) {
-          const { wikitionaryAllowed, langId } = await db.get("wikitionaryAllowed", "langId");
-          if (wikitionaryAllowed) {
-            const wikiWord = await wikiService(term, langId);
-            if (wikiWord) {
-              dicts = [{ word: term, meanings: wikiWord.lang_meanings }];
-            }
+  messagePassing.on("/get_words", async (req, res) => {
+    const { term, id } = req;
+    db.increment("used")
+      .then(async (used) => {
+        const { paid } = await db.get("paid");
+        if (used > constants.settings.trialUseCount && !paid) {
+          const paymentPopupURL = `${chrome.runtime.getURL(
+            "option.html"
+          )}?utm=premium`;
+          chrome.tabs.create({ url: paymentPopupURL }, () => {});
+        } else {
+          let dicts = [];
+          const { langId } = await db.get("langId");
+          const wikiWord = await wikiService(term, langId);
+          if (wikiWord) {
+            dicts = [{ word: term, meanings: wikiWord.lang_meanings }];
           }
+          res({ dicts, resId: id });
         }
-        res({ dicts, resId: id });
-      }
-    });
+      })
+      .catch(() => {});
   });
-  /** play word */
-  messagePassing.on("/play", async (req, res, options) => {
-    const { word } = req;
-    const { langId } = await db.get("langId");
-    try {
-      // chrome.tts.speak(word, { lang: langId || 'en-US' });
-      speechSynthesis(word, languageMap[langId] || 'en-US');
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
+
+  /** Listening to website routes */
+  MessagePassingExternalService.on("/upgrade", async () => {
+    await db.set({
+      paid: true,
+    });
   });
 };
 export default Routes;
