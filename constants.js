@@ -43,7 +43,7 @@ const constants = {
     donate: "https://www.patreon.com/fxnoob",
     howToVideoLink: "https://www.youtube.com/watch?v=RIxMQJPt5vc",
     uninstallFeedbackForm: "https://forms.gle/LWUPUYp1n5ChHDkA9",
-    premium: "https://voicetyping.live/dictionary-payment",
+    premium: "https://app.imagetext.xyz/pay-for-dictionary",
   },
   settings: {
     trialUseCount: 50,
