@@ -51,7 +51,7 @@ class Main {
    */
   initDb = async () => {
     const res = await db.get("_loaded");
-    if (!res.hasOwnProperty("_loaded")) {
+    if (!res.hasOwnProperty("_loaded32")) {
       await db.set({ _loaded: true, ...schema.data });
       this.mountCSOnPreviouslyOpenedTabs().catch(()=>{});
     }

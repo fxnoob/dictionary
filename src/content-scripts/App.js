@@ -49,7 +49,9 @@ export default function App() {
   const playSound = () => {
     messagePassing.sendMessage("/play", { word: word.word });
   };
-  // eslint-disable-next-line no-console
+  const openSettings = () => {
+    messagePassing.sendMessage("/open_settings", {});
+  };
   return (
     <Popover
       placementStrategy={placeRightBelow}
@@ -66,6 +68,9 @@ export default function App() {
           boxShadow: "0 0 20px rgb(0 0 0 / 50%)",
           border: "1px solid #999",
           borderRadius: '4px',
+          width: '400px',
+          height: '250px',
+          fontFamily: 'Verdana, sans-serif'
         }}
       >
         <div className="px-6 py-4 whitespace-nowrap">
@@ -81,9 +86,10 @@ export default function App() {
                       {word.word}
                     </div>
                     <div id="audio-icon" onClick={playSound} className=""></div>
+                    <div id="setting-icon" onClick={openSettings} className=""></div>
                   </div>
                   {word.meanings && word.meanings.map(object =>
-                    <div className="text-sm text-gray-700" key={object.language} 
+                    <div className="text-sm text-gray-700" key={object.language}
                       style={{ marginTop: '0.5rem', fontFamily: 'arial, sans-serif' }}>
                       <span><b>{object.language}</b></span>
                       {object.sections.map(section =>
@@ -94,17 +100,22 @@ export default function App() {
                       }
                     </div>)
                   }
-                  <div className="text-sm text-gray-500" style={{ marginTop: '0.4rem' }}>
-                    [ powered by {" "}
-                    <a rel="noreferrer" style={{ fontFamily: 'arial, sans-serif' }}
-                      href="https://imagetext.xyz" target="_blank">imagetext.xyz</a> {" "}]
-                  </div>
                 </>: <div style={{ fontFamily: 'arial, sans-serif' }}>{t("noDefFound")}</div>
               )
               }
             </div>
           </div>
         </div>
+        {/* eslint-disable-next-line max-len */}
+        {!loading && !error && <div className="text-sm text-gray-500" style={{
+          marginTop: '0.rem', position: "fixed",
+          bottom: 0, flexShrink: 0, textAlign: 'center', backgroundColor: '#2ca44e',
+          color: 'white', width: '100%'
+        }}>
+           powered by {" "}
+          <a rel="noreferrer" style={{ fontFamily: 'arial, sans-serif' }}
+            href="https://imagetext.xyz" target="_blank">imagetext.xyz</a> {" "}
+        </div>}
       </FrameComponent>
     </Popover>
   );

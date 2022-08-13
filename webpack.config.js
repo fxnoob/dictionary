@@ -57,6 +57,7 @@ module.exports = (env, options) => {
       publicPath: "/",
       filename: "[name].bundle.js"
     },
+    devtool: 'cheap-module-source-map',
     optimization: {
       minimize: options.mode === "production",
     },

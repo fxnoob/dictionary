@@ -54,6 +54,15 @@ const initialContent = () => {
             opacity: 0.5;
             width: 16px;
         }
+        #setting-icon {
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAABbUlEQVQ4jaXTP0iVURjH8c/NC43lvUOBi0U5GN5rmf0ZbHRoCFxqaeq2NegQhAYWbUJQDiI151CT1CQ4qIPEJaIwDW6QTYVSXQXBSXQ457WTXIXogQfOy3nO9znv7/cc/jNyybqIAZxC0z71W/iCp/idbhTxGu0JuBu3Y3Ynzc7E2oKk0xBGsYQyxpHHKjbQhbv4jE9YwC3MHIqAVizGw4NxcwXXcAWX8AL3UYqQk5ABsms/xCTmsI6j+Io76MHLWLOrXT4BnMc8buI6nmMah/EsajGOtziXHUpvUMZ3fEMvlmO24hdGUEMVnY0AWWzvWeca1OxGCviIlthxCicEoX7gGO6hDRfxoRHgHS5jAq/wGBdQR0VwYCIC3jcCbOMB+gTrjmANpzGGWdzAcPqb2SCdxU9hQGp4IthYFWzcxFU8EmaghOOYyUAFvEFH/M4JtlZidvkjZlkY5Wb+VriA/ijUQY+pJjym+j41/xY7OxNMvfd6tEgAAAAASUVORK5CYII=);
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            margin-left: 8px;
+            opacity: 0.5;
+            width: 16px;
+        }
         .loader {
           position: relative;
           margin: 0 auto;

@@ -3,6 +3,7 @@ import MessagePassingExternalService from "./services/messagePassingExternal";
 import wikiService from "./services/wikiService";
 import db from "./services/dbService";
 import constants from "../constants";
+import chromeService from "./services/chromeService";
 
 /**
  *
@@ -33,6 +34,10 @@ const Routes = () => {
         }
       })
       .catch(() => {});
+  });
+  // open settings
+  messagePassing.on("/open_settings", async () => {
+    chromeService.openHelpPage('settings');
   });
 
   /** Listening to website routes */
